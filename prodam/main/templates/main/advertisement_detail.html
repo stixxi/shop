@@ -1,0 +1,25 @@
+{% extends 'main/base_logged.html' %}
+
+{% block title %}{{ ad.title }} — Объявление{% endblock %}
+
+{% block content %}
+<div class="advertisement-detail">
+    <div class="advertisement-images mb-4">
+        {% for img in ad.images.all %}
+            <img src="{{ img.image.url }}" alt="Фото объявления" class="ad-image img-fluid mb-2" />
+        {% endfor %}
+    </div>
+
+    <h2 class="ad-title">{{ ad.title }}</h2>
+    <p class="ad-description">{{ ad.description }}</p>
+
+    <hr>
+
+    <div class="ad-meta">
+        <p><strong>Автор:</strong> {{ ad.author.username }}</p>
+        <p><strong>Телефон:</strong> {{ ad.author.phone }}</p>
+        <p><strong>Город:</strong> {{ ad.author.city }}</p>
+        <p><strong>Дата создания:</strong> {{ ad.created_at|date:"d.m.Y H:i" }}</p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "main/base_logged.html" %}
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/moderation.css' %}">
+{% endblock %}
+
+{% block title %}Панель администратора — Заявки на модерацию{% endblock %}
+
+{% block content %}
+<h2>Заявки на модерацию</h2>
+
+{% if applications %}
+    <ul class="list-group">
+        {% for ad in applications %}
+            <li class="list-group-item">
+                <strong>{{ ad.title }}</strong><br>
+                Автор: {{ ad.author.username }}<br>
+                <p>{{ ad.description }}</p>
+
+                <form method="post" class="d-inline">
+                    {% csrf_token %}
+                    <input type="hidden" name="ad_id" value="{{ ad.id }}">
+                    <input type="hidden" name="action" value="approve">
+                    <button type="submit" class="btn btn-success btn-sm">Одобрить</button>
+                </form>
+
+                <form method="post" class="d-inline mt-2">
+                    {% csrf_token %}
+                    <input type="hidden" name="ad_id" value="{{ ad.id }}">
+                    <input type="hidden" name="action" value="reject">
+                    <input type="text" name="reason" placeholder="Причина отклонения" required>
+                    <button type="submit" class="btn btn-danger btn-sm">Отклонить</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Нет заявок на модерацию.</p>
+{% endif %}
+{% endblock %}

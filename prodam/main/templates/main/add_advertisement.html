@@ -1,0 +1,59 @@
+{% extends 'main/base_logged.html' %}
+{% load static %}
+{% block title %}Новое объявление{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/modal.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Добавить объявление</h2>
+
+<form id="adForm" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+    {% csrf_token %}
+    <div class="mb-3">
+        {{ form.title.label_tag }}
+        {{ form.title }}
+        {% for error in form.title.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="mb-3">
+        {{ form.description.label_tag }}
+        {{ form.description }}
+        {% for error in form.description.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="mb-3">
+        {{ image_form.image.label_tag }}
+        {{ image_form.image }}
+        {% for error in image_form.image.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Добавить</button>
+</form>
+
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <p>Ваше объявление передано в обработку, в скором времени его проверят</p>
+  </div>
+</div>
+
+<script>
+  document.getElementById('adForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const modal = document.getElementById('modal');
+    modal.style.display = 'flex';
+
+    setTimeout(() => {
+      modal.style.display = 'none';
+      event.target.submit();
+    }, 3000);
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'main/base_logged.html' %}
+
+{% block title %}Главная — Доска объявлений{% endblock %}
+
+{% block content %}
+<h2>Все объявления</h2>
+
+{% if advertisements %}
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for ad in advertisements %}
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{% url 'advertisement_detail' ad.id %}">{{ ad.title }}</a>
+                    </h5>
+                    <p class="card-text">{{ ad.description|truncatewords:20 }}</p>
+                </div>
+                <div class="card-footer text-muted">
+                    Автор: {{ ad.author.username }}<br>
+                    Добавлено: {{ ad.created_at|date:"d.m.Y" }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>Объявлений пока нет.</p>
+{% endif %}
+{% endblock %}

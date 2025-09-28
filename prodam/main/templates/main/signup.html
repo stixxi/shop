@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="{% static 'main/styles.css' %}">
+</head>
+<body>
+    <div class="auth-container">
+        <h2>Регистрация</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <p>
+                <label for="id_username">Имя пользователя:</label>
+                <input type="text" name="username" id="id_username" value="{{ form.username.value|default:'' }}">
+            </p>
+
+            <p>
+                <label for="id_email">Email:</label>
+                <input type="email" name="email" id="id_email" value="{{ form.email.value|default:'' }}">
+            </p>
+
+            <p>
+                <label for="id_phone">Телефон:</label>
+                <input type="text" name="phone" id="id_phone" value="{{ form.phone.value|default:'' }}">
+            </p>
+
+            <p>
+                <label for="id_city">Город:</label>
+                <input type="text" name="city" id="id_city" value="{{ form.city.value|default:'' }}">
+            </p>
+
+            <p>
+                <label for="id_avatar">Аватар:</label>
+                <input type="file" name="avatar" id="id_avatar">
+            </p>
+
+            <p>
+                <label for="id_password1">Пароль:</label>
+                <input type="password" name="password1" id="id_password1">
+            </p>
+
+            <p>
+                <label for="id_password2">Повторите пароль:</label>
+                <input type="password" name="password2" id="id_password2">
+            </p>
+
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+
+        <div class="auth-link">
+            <p>Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a></p>
+        </div>
+    </div>
+
+    {% if form.errors %}
+    <div class="modal-overlay" id="errorModal">
+        <div class="modal">
+            <h3>Ошибка регистрации</h3>
+            <ul>
+                {% for field, errors in form.errors.items %}
+                    {% for error in errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+            <button onclick="closeModal()">OK</button>
+        </div>
+    </div>
+    {% endif %}
+
+    <script>
+        function closeModal() {
+            document.getElementById('errorModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

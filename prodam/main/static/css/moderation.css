@@ -1,0 +1,55 @@
+h2 {
+    margin-bottom: 20px;
+    font-weight: 600;
+    color: #333;
+}
+
+.list-group-item {
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    background-color: #f9f9f9;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.list-group-item strong {
+    font-size: 1.2rem;
+    color: #2c3e50;
+}
+
+.list-group-item p {
+    margin: 10px 0 15px 0;
+    color: #555;
+}
+
+.btn {
+    min-width: 90px;
+}
+
+.btn-sm {
+    padding: 4px 10px;
+    font-size: 0.85rem;
+}
+
+input[type="text"] {
+    max-width: 320px;
+    padding: 6px 10px;
+    font-size: 0.9rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.2s ease;
+}
+
+input[type="text"]:focus {
+    border-color: #198754;
+    outline: none;
+}
+
+.d-inline {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.mt-2 {
+    margin-top: 8px;
+}
